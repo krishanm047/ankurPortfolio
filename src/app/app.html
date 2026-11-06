@@ -1,0 +1,143 @@
+<mat-toolbar class="nav">
+  <span class="brand" (click)="scrollTo('home')">ANKUR<span class="accent">.</span>SINGH</span>
+  <span class="spacer"></span>
+  <nav class="links" [class.open]="menuOpen()">
+    @for (n of nav; track n) {
+      <button mat-button (click)="scrollTo(n)">{{ n | titlecase }}</button>
+    }
+  </nav>
+  <button mat-icon-button class="menu-btn" (click)="menuOpen.set(!menuOpen())" aria-label="Menu">
+    <mat-icon>{{ menuOpen() ? 'close' : 'menu' }}</mat-icon>
+  </button>
+</mat-toolbar>
+
+<!-- HERO -->
+<section id="home" class="hero">
+  <div class="hero-content">
+    <p class="eyebrow">Chase Experiences 💪🏽</p>
+    <h1>ANKUR <span class="accent">SINGH</span></h1>
+    <h2>Automobile Enthusiast · Deputy Manager</h2>
+    <p class="sub">Harley-Davidson India Unit · Hero MotoCorp</p>
+    <p class="sub"><mat-icon class="inline">place</mat-icon> {{ location }}</p>
+    <div class="cta">
+      <button mat-flat-button (click)="scrollTo('contact')"><mat-icon>mail</mat-icon> Get in touch</button>
+      <button mat-stroked-button (click)="scrollTo('about')"><mat-icon>arrow_downward</mat-icon> Explore</button>
+    </div>
+  </div>
+  <!-- Shows public/ankur.png; falls back to the icon if the photo is missing -->
+  <div class="hero-badge">
+    @if (photoOk()) {
+      <img [src]="photo" alt="Ankur Singh" (error)="photoOk.set(false)">
+    } @else {
+      <mat-icon>two_wheeler</mat-icon>
+    }
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about" class="section">
+  <h3 class="title">About <span class="accent">Me</span></h3>
+  <p class="lead">{{ bio }}</p>
+  <blockquote class="quote">“{{ quote }}”</blockquote>
+  <div class="stats">
+    @for (s of stats; track s.label) {
+      <mat-card class="stat"><div class="val">{{ s.value }}</div><div class="lbl">{{ s.label }}</div></mat-card>
+    }
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section id="experience" class="section dark">
+  <h3 class="title">What I <span class="accent">Do</span></h3>
+  <div class="grid">
+    @for (e of experience; track e.title) {
+      <mat-card class="card">
+        <mat-icon class="big">{{ e.icon }}</mat-icon>
+        <h4>{{ e.title }}</h4>
+        <p>{{ e.text }}</p>
+      </mat-card>
+    }
+  </div>
+</section>
+
+<!-- JOURNEY / TIMELINE -->
+<section id="journey" class="section">
+  <h3 class="title">The <span class="accent">Journey</span></h3>
+  <div class="two-col">
+    <div>
+      <h4 class="sub-title"><mat-icon>work</mat-icon> Experience</h4>
+      <div class="timeline">
+        @for (m of journey; track m.period) {
+          <div class="tl-item">
+            <div class="tl-dot"></div>
+            <mat-card class="card tl-card">
+              <span class="period">{{ m.period }}</span>
+              <h4>{{ m.role }}</h4>
+              <p class="org">{{ m.org }}</p>
+              @if (m.points.length) {
+                <ul>@for (pt of m.points; track pt) { <li>{{ pt }}</li> }</ul>
+              }
+            </mat-card>
+          </div>
+        }
+      </div>
+    </div>
+    <div>
+      <h4 class="sub-title"><mat-icon>school</mat-icon> Education</h4>
+      <div class="timeline">
+        @for (m of education; track m.period) {
+          <div class="tl-item">
+            <div class="tl-dot"></div>
+            <mat-card class="card tl-card">
+              <span class="period">{{ m.period }}</span>
+              <h4>{{ m.role }}</h4>
+              <p class="org">{{ m.org }}</p>
+            </mat-card>
+          </div>
+        }
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PASSION -->
+<section id="passion" class="section dark">
+  <h3 class="title">Fuelled by <span class="accent">Passion</span></h3>
+  <div class="grid">
+    @for (p of passions; track p.title) {
+      <mat-card class="card">
+        <mat-icon class="big">{{ p.icon }}</mat-icon>
+        <h4>{{ p.title }}</h4>
+        <p>{{ p.text }}</p>
+      </mat-card>
+    }
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills" class="section">
+  <h3 class="title">Top <span class="accent">Skills</span></h3>
+  <div class="grid">
+    @for (s of skills; track s.title) {
+      <mat-card class="card skill-card">
+        <mat-icon class="big">{{ s.icon }}</mat-icon>
+        <h4>{{ s.title }}</h4>
+      </mat-card>
+    }
+  </div>
+  <mat-chip-set class="tags">
+    @for (t of tags; track t) { <mat-chip>{{ t }}</mat-chip> }
+  </mat-chip-set>
+</section>
+
+<!-- CONTACT -->
+<section id="contact" class="section contact">
+  <h3 class="title">Let's <span class="accent">Connect</span></h3>
+  <p class="lead">Open to conversations on motorcycles, sales and the two-wheeler business.</p>
+  <div class="cta">
+    <a mat-flat-button [href]="'mailto:' + email"><mat-icon>mail</mat-icon> {{ email }}</a>
+    <a mat-stroked-button [href]="linkedin" target="_blank" rel="noopener"><mat-icon>work</mat-icon> LinkedIn</a>
+  </div>
+</section>
+
+<footer>© {{ year }} Ankur Singh · Chase experiences.</footer>
